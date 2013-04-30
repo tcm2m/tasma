@@ -1,0 +1,12 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    puppetlabs/apache (0.6.0)
+      puppetlabs/firewall (>= 0.0.4)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/firewall (0.3.0)
+    puppetlabs/stdlib (4.0.2)
+
+DEPENDENCIES
+  puppetlabs/apache (>= 0)
+
