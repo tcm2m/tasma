@@ -38,10 +38,13 @@ Ext.define('Tasma.controller.Settings', {
     },
 
     saveDog: function() {
-        var dogName = this.getSettingsView().down('[name=dog_name]').getValue();
+        var dogField = this.getSettingsView().down('[name=dog_name]'),
+            dogName  = dogField.getValue();
 
         if (!dogName) {
-            Ext.Msg.alert('Hata!', 'Lütfen köpeğinizin adını girin.');
+            Ext.Msg.alert('Hata!', 'Lütfen köpeğinizin adını girin.', function() {
+                dogField.focus();
+            });
 
             return;
         }
