@@ -12,8 +12,11 @@ Ext.application({
     name: 'Tasma',
 
     models:[
-        'Dog'
+        'Dog',
+        'Location'
     ],
+
+    stores: ['DogLocations'],
 
     views: [
         'Map',
