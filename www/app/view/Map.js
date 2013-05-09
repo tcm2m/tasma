@@ -17,6 +17,19 @@ Ext.define('Tasma.view.Map', {
                 iconCls: 'settings',
                 ui: 'plain',
                 align: 'right'
+            }, {
+                iconCls: 'info',
+                ui: 'plain',
+                align: 'right',
+                handler: function() {
+                    var panel = this.up('#map-view').down('panel');
+
+                    if (panel.isHidden()) {
+                        panel.show();
+                    } else {
+                        panel.hide();
+                    }
+                }
             }]
         }, {
             xtype: 'map',
@@ -28,6 +41,7 @@ Ext.define('Tasma.view.Map', {
         }, {
             xtype: 'panel',
             masked: true,
+            hidden: true,
             styleHtmlContent: true,
             left: 20,
             bottom: 20,
