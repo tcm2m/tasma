@@ -29,7 +29,6 @@ Ext.define('Tasma.view.Map', {
             xtype: 'panel',
             masked: true,
             styleHtmlContent: true,
-            width: '40%',
             left: 20,
             bottom: 20,
             tpl: '<div>Sizden uzaklığı: {distance} metre</div><div>Toplam mesafe: {path_length} metre</div>'
