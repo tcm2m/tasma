@@ -20,7 +20,11 @@ Ext.define('Tasma.view.Map', {
             }]
         }, {
             xtype: 'map',
-            useCurrentLocation: true
+            useCurrentLocation: true,
+            mapOptions: {
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            }
         }]
     }
 });
