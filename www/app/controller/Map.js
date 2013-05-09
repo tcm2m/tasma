@@ -57,7 +57,9 @@ Ext.define('Tasma.controller.Map', {
             geodesic: true,
             strokeColor: '#FF0000',
             icons: [{
-                icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+                icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+                },
                 offset: '100%'
             }],
             map: gMap
@@ -91,8 +93,12 @@ Ext.define('Tasma.controller.Map', {
             gMap.fitBounds(latLngBounds);
 
             var distance = google.maps.geometry.spherical.computeDistanceBetween(startPoint.getPosition(), dogPath.getPath().getAt(dogPath.getPath().getLength() - 1));
+            var pathLength = google.maps.geometry.spherical.computeLength(dogPath.getPath());
 
-            this.getMapView().down('titlebar').setTitle(Ext.util.Format.format('{0} sizden {1} metre uzakta', this.getApplication().dog.get('name'), Math.ceil(distance)));
+            this.getMapView().down('panel').setMasked(false).setData({
+                distance: Math.ceil(distance),
+                path_length: Math.ceil(pathLength)
+            });
         }, this);
     }
 });
