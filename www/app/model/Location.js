@@ -4,8 +4,7 @@ Ext.define('Tasma.model.Location', {
     config: {
         fields: [
             { name: 'lat', type: 'float' },
-            { name: 'lon', type: 'float' }
-        ],
-        belongsTo: 'Tasma.model.Dog'
+            { name: 'lng', type: 'float' }
+        ]
     }
 });
