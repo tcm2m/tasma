@@ -4,7 +4,8 @@ Ext.define('Tasma.view.Map', {
 
     requires: [
         'Ext.TitleBar',
-        'Ext.Map'
+        'Ext.Map',
+        'Tasma.plugin.Video'
     ],
 
     config: {
@@ -46,6 +47,13 @@ Ext.define('Tasma.view.Map', {
             left: 20,
             bottom: 20,
             tpl: '<div>Sizden uzaklığı: {distance} metre</div><div>Toplam mesafe: {path_length} metre</div>'
-        }]
+        }],
+        plugins: Ext.os.is.Desktop ? {
+            type: 'dogvideo',
+            bottom: 20,
+            right: 20,
+            width: 240,
+            height: 160
+        } : []
     }
 });
