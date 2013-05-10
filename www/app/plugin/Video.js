@@ -15,6 +15,19 @@ Ext.define('Tasma.plugin.Video', {
     },
 
     init: function(container) {
-        container.add(this);
+        var me = this;
+
+        container.add(me);
+
+        container.down('titlebar').add({
+            iconCls: 'video',
+            handler: function() {
+                if (me.isHidden()) {
+                    me.show();
+                } else {
+                    me.hide();
+                }
+            }
+        });
     }
 });

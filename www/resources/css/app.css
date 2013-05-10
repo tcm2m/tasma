@@ -6933,3 +6933,15 @@ body.x-desktop {
   background-image: linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   color: black;
 }
+
+/* line 260, ../../touch/resources/themes/stylesheets/sencha-touch/base/mixins/_Class.scss */
+.x-tab .x-button-icon.video:before,
+.x-button .x-button-icon.video:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  content: "V";
+}

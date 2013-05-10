@@ -14,14 +14,14 @@ Ext.define('Tasma.view.Map', {
             xtype: 'titlebar',
             title: 'Köpeğim Nerede?',
             docked: 'top',
-            items: [{
-                iconCls: 'settings',
+            defaults: {
                 ui: 'plain',
                 align: 'right'
+            },
+            items: [{
+                iconCls: 'settings'
             }, {
                 iconCls: 'info',
-                ui: 'plain',
-                align: 'right',
                 handler: function() {
                     var panel = this.up('#map-view').down('panel');
 
