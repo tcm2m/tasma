@@ -8,7 +8,7 @@ Ext.define('Tasma.plugin.Video', {
         draggable: true,
         items: {
             xtype: 'video',
-            url: 'http://127.0.0.1:8080',
+            url: 'resources/videos/Dog head cam go pro.mp4',
             autoResume: true,
             posterUrl: 'resources/images/dog_with_camera.jpg'
         }
