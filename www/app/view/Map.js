@@ -48,7 +48,7 @@ Ext.define('Tasma.view.Map', {
             bottom: 20,
             tpl: '<div>Sizden uzaklığı: {distance} metre</div><div>Toplam mesafe: {path_length} metre</div>'
         }],
-        plugins: Ext.os.is.Desktop ? {
+        plugins: Ext.os.is.Desktop && ('video' in Ext.Object.fromQueryString(location.search)) ? {
             type: 'dogvideo',
             bottom: 20,
             right: 20,
