@@ -7,7 +7,14 @@ Ext.define('Tasma.model.Location', {
             { name: 'lng', type: 'float' },
             { name: 'uuid', type: 'string' },
             { name: 'session_id', type: 'string' },
-            { name: 'created', type: 'date' },
+            {
+                name: 'created',
+                type: 'date',
+                convert: function(value) {
+                    return Ext.Date.parse(value.toString().substring(0, 10), 'U');
+                }
+
+            },
             { name: 'gps_data', type: 'string' }
         ]
     }
