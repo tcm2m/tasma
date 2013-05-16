@@ -13,9 +13,7 @@ Ext.define('Tasma.model.Location', {
                 convert: function(value) {
                     return Ext.Date.parse(value.toString().substring(0, 10), 'U');
                 }
-
-            },
-            { name: 'gps_data', type: 'string' }
+            }
         ]
     }
 });
