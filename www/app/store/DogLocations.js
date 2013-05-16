@@ -5,7 +5,7 @@ Ext.define('Tasma.store.DogLocations', {
         model: 'Tasma.model.Location',
         proxy: {
             type: 'ajax',
-            url: 'https://usergridstack.dnsdynamic.com/deneme/sandbox/locations',
+            url: 'http://usergridstack.dnsdynamic.com:8080/deneme/sandbox/locations',
             reader: {
                 type: 'json',
                 rootProperty: 'entities',
