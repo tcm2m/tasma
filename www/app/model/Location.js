@@ -14,6 +14,7 @@ Ext.define('Tasma.model.Location', {
                     return Ext.Date.parse(value.toString().substring(0, 10), 'U');
                 }
             }
-        ]
+        ],
+        idProperty: 'uuid'
     }
 });
