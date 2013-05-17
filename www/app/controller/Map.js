@@ -70,13 +70,13 @@ Ext.define('Tasma.controller.Map', {
         var lastLatLng = this.getLocationStore().first();
 
         var startPoint = new google.maps.Marker({
-            position: new google.maps.LatLng(lastLatLng.get('lat'), lastLatLng.get('lng')),
+            position: new google.maps.LatLng(lastLatLng.get('latitude'), lastLatLng.get('longitude')),
             map: gMap,
             title: 'Buradasınız'
         });
 
         var updatePath = function(record) {
-            var point = new google.maps.LatLng(record.get('lat'), record.get('lng'));
+            var point = new google.maps.LatLng(record.get('latitude'), record.get('longitude'));
 
             dogPath.getPath().push(point);
 
