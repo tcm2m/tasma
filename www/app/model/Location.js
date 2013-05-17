@@ -3,8 +3,8 @@ Ext.define('Tasma.model.Location', {
     
     config: {
         fields: [
-            { name: 'lat', type: 'float' },
-            { name: 'lng', type: 'float' },
+            { name: 'latitude', type: 'float' },
+            { name: 'longitude', type: 'float' },
             { name: 'uuid', type: 'string' },
             { name: 'session_id', type: 'string' },
             {
