@@ -2,13 +2,10 @@ Ext.define('Tasma.controller.Map', {
     extend: 'Ext.app.Controller',
 
     config: {
-        routes: {
-            '': 'showMap'
-        },
         refs: {
-            mapView: '#map-view',
-            map: '#map-view map',
-            settingsButton: '#map-view button[iconCls=settings]'
+            mainView: '#main-view',
+            mapView: 'x-view-map',
+            map: 'x-view-map map'
         },
         control: {
             mapView: {
@@ -16,9 +13,6 @@ Ext.define('Tasma.controller.Map', {
             },
             map: {
                 maprender: 'drawDogPath'
-            },
-            settingsButton: {
-                tap: 'redirectToSettings'
             }
         },
 
@@ -31,20 +25,12 @@ Ext.define('Tasma.controller.Map', {
 
     launch: function() {
         if (!this.getApplication().dog.get('name')) {
-            this.redirectToSettings();
+            this.getMainView().setActiveItem('x-view-settings');
         }
-    },
-
-    showMap: function() {
-        Ext.Viewport.animateActiveItem(this.getMapView(), {type: 'reveal', direction: 'up'});
     },
 
     updateTitleBar: function() {
         this.getMapView().down('titlebar').setTitle(this.getApplication().dog.get('name') + ' nerede?');
-    },
-
-    redirectToSettings: function() {
-        this.redirectTo('settings');
     },
 
     drawDogPath: function(mapComp) {

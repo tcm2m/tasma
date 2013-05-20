@@ -1,6 +1,6 @@
 Ext.define('Tasma.view.Settings', {
     extend: 'Ext.Container',
-    id: 'settings-view',
+    xtype: 'x-view-settings',
 
     requires: [
         'Ext.form.FieldSet'
@@ -12,6 +12,16 @@ Ext.define('Tasma.view.Settings', {
             pack: 'center'
         },
         items: [{
+            xtype: 'titlebar',
+            title: 'Ayarlar',
+            docked: 'top',
+            items: {
+                xtype: 'button',
+                text: 'Kaydet',
+                ui: 'action',
+                align: 'right'
+            }
+        }, {
             xtype: 'fieldset',
             items: [{
                 xtype: 'textfield',
@@ -19,18 +29,6 @@ Ext.define('Tasma.view.Settings', {
                 required: true,
                 placeHolder: 'Köpeğinizin adı'
             }]
-        }, {
-            xtype: 'toolbar',
-            docked: 'bottom',
-            layout: {
-                pack: 'center'
-            },
-            items: {
-                xtype: 'button',
-                text: 'Kaydet',
-                ui: 'action',
-                flex: 1
-            }
         }]
     }
 });

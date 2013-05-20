@@ -1,6 +1,6 @@
 Ext.define('Tasma.view.Map', {
     extend: 'Ext.Container',
-    id: 'map-view',
+    xtype: 'x-view-map',
 
     requires: [
         'Ext.TitleBar',
@@ -19,11 +19,9 @@ Ext.define('Tasma.view.Map', {
                 align: 'right'
             },
             items: [{
-                iconCls: 'settings'
-            }, {
                 iconCls: 'info',
                 handler: function() {
-                    var panel = this.up('#map-view').down('panel');
+                    var panel = this.up('x-view-map').down('panel');
 
                     if (panel.isHidden()) {
                         panel.show();

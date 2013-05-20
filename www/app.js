@@ -19,6 +19,7 @@ Ext.application({
     stores: ['DogLocations'],
 
     views: [
+        'Main',
         'Map',
         'Settings'
     ],
@@ -58,10 +59,7 @@ Ext.application({
             scope: this
         });
 
-        Ext.Viewport.add([
-            Ext.create('Tasma.view.Map'),
-            Ext.create('Tasma.view.Settings')
-        ]);
+        Ext.Viewport.add(Ext.create('Tasma.view.Main'));
     },
 
     onUpdated: function() {
