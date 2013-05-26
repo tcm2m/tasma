@@ -10,6 +10,9 @@ Ext.define('Tasma.store.DogLocations', {
                 type: 'json',
                 rootProperty: 'entities',
                 totalProperty: 'count'
+            },
+            extraParams: {
+                limit: 999
             }
         },
         autoLoad: true
