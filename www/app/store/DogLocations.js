@@ -12,9 +12,24 @@ Ext.define('Tasma.store.DogLocations', {
                 totalProperty: 'count'
             },
             extraParams: {
-                limit: 999
+                limit: 1
             }
         },
         autoLoad: true
+    },
+
+    constructor: function() {
+        var me    = this,
+            limit = 1;
+
+        setInterval(function() {
+            limit++;
+
+            me.load({
+                params: {limit: limit}
+            });
+        }, 1000);
+
+        this.callParent(arguments);
     }
 });

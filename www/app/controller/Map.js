@@ -73,7 +73,9 @@ Ext.define('Tasma.controller.Map', {
 
         gMap.fitBounds(latLngBounds);
 
-        this.getLocationStore().on('addrecords', function(store, records) {
+        this.getLocationStore().on('load', function(store, records) {
+            dogPath.setPath([]);
+
             records.forEach(updatePath);
 
             gMap.fitBounds(latLngBounds);
