@@ -13,23 +13,7 @@ Ext.define('Tasma.view.Map', {
         items: [{
             xtype: 'titlebar',
             title: 'Köpeğim Nerede?',
-            docked: 'top',
-            defaults: {
-                ui: 'plain',
-                align: 'right'
-            },
-            items: [{
-                iconCls: 'info',
-                handler: function() {
-                    var panel = this.up('x-view-map').down('panel');
-
-                    if (panel.isHidden()) {
-                        panel.show();
-                    } else {
-                        panel.hide();
-                    }
-                }
-            }]
+            docked: 'top'
         }, {
             xtype: 'map',
             useCurrentLocation: true,
@@ -40,7 +24,6 @@ Ext.define('Tasma.view.Map', {
         }, {
             xtype: 'panel',
             masked: true,
-            hidden: true,
             styleHtmlContent: true,
             left: 20,
             bottom: 20,
