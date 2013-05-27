@@ -28,7 +28,7 @@ Ext.define('Tasma.store.DogLocations', {
             me.load({
                 params: {limit: limit}
             });
-        }, 1000);
+        }, 5000);
 
         this.callParent(arguments);
     }
