@@ -37,11 +37,17 @@ exec { 'install sencha cmd':
   require => Package['openjdk-7-jre'],
 }
 
-class { 'apache': }
+include apt
 
-apache::vhost { 'tasma.dev':
-  port    => '80',
-  docroot => '/vagrant/www'
+apt::ppa { 'ppa:chris-lea/node.js': }
+->
+package { 'nodejs':
+  ensure => latest
+}
+->
+package { 'grunt-cli':
+  ensure   => present,
+  provider => npm
 }
 
 package { 'compass':
