@@ -1,0 +1,27 @@
+{
+  "name": "tasma-app",
+  "version": "1.0.0",
+  "description": "TCM2M Köpeğim Nerede Örnek Uygulaması",
+  "homepage": "http://tcm2m.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcm2m/tasma-app.git"
+  },
+  "author": {
+    "name": "Erhan Abay",
+    "email": "erhan.abay@mc2.com.tr",
+    "url": "http://mc2.com.tr"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tcm2m/tasma-app/issues"
+  },
+  "devDependencies": {
+    "grunt-concurrent": "~0.3.0",
+    "grunt-contrib-compass": "~0.4.1",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-contrib-connect": "~0.3.0",
+    "progress": "~1.0.0"
+  }
+}
