@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "TCM2M Köpeğim Nerede Örnek Uygulaması",
   "homepage": "http://tcm2m.com",
+  "scripts": {
+    "postinstall": "grunt install-sencha-cmd"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/tcm2m/tasma-app.git"
