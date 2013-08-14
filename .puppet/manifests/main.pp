@@ -7,7 +7,7 @@ package { 'nodejs':
 }
 ->
 package { 'grunt-cli':
-  ensure   => latest,
+  ensure   => installed,
   provider => npm
 }
 
