@@ -1,5 +1,6 @@
 .idea
 .sass-cache
 .vagrant
+node_modules
 archive
 build
