@@ -4,7 +4,7 @@
   "description": "TCM2M Köpeğim Nerede Örnek Uygulaması",
   "homepage": "http://tcm2m.com",
   "scripts": {
-    "postinstall": "grunt install-sencha-cmd"
+    "postinstall": "grunt install"
   },
   "repository": {
     "type": "git",

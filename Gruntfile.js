@@ -39,6 +39,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['concurrent']);
 
+    grunt.registerTask('install', ['install-sencha-cmd', 'install-sencha-sdk']);
+
     grunt.registerTask('install-sencha-cmd', function() {
         var done = this.async();
         var tpl = function(template, data) {
