@@ -128,4 +128,72 @@ module.exports = function(grunt) {
             }
         }, done);
     });
+
+    grunt.registerTask('install-sencha-sdk', function() {
+        var done = this.async();
+        var tpl = function(template, data) {
+            return grunt.template.process(template, {data: data});
+        };
+
+        var version = '2.2.1';
+        var installPath = '/tmp';
+        var sdkPath = tpl('<%= path %>/touch-<%= version %>', {path: installPath, version: version});
+        var zipPath = tpl('<%= path %>/sencha-touch-<%= version %>-gpl.zip', {path: installPath, version: version});
+        var appPath = __dirname + '/www';
+
+        grunt.util.async.series({
+            download: function(callback) {
+                grunt.log.subhead('downloading sencha touch %s...', version);
+
+                if (grunt.file.exists(zipPath)) {
+                    grunt.log.writeln('sdk already downloaded, skipping...');
+
+                    callback();
+                } else {
+                    var ProgressBar = require('progress');
+                    var http = require('http');
+                    var fs = require('fs');
+                    var file = fs.createWriteStream(zipPath);
+                    var installerUrl = tpl('http://cdn.sencha.com/touch/sencha-touch-<%= version %>-gpl.zip', {version: version});
+
+                    grunt.log.writeln('downloading from %s', installerUrl.underline);
+
+                    http.get(installerUrl, function(res) {
+                        res.pipe(file);
+
+                        var bar = new ProgressBar('  downloading [:bar] :percent :etas', {
+                            complete: '=',
+                            incomplete: ' ',
+                            width: 20,
+                            total: parseInt(res.headers['content-length'], 10)
+                        });
+
+                        res.on('data', function(chunk) {
+                            bar.tick(chunk.length);
+                        });
+
+                        res.on('end', callback);
+                    });
+                }
+            },
+
+            unzip: function(callback) {
+                grunt.log.subhead('unzipping...');
+
+                grunt.util.spawn({
+                    cmd: 'unzip',
+                    args: ['-o', zipPath, '-d', installPath]
+                }, callback);
+            },
+
+            generateWorkspace: function(callback) {
+                grunt.log.subhead('generating sencha workspace...');
+
+                grunt.util.spawn({
+                    cmd: 'sencha',
+                    args: ['-sdk', sdkPath, 'generate', 'workspace', appPath]
+                }, callback);
+            }
+        }, done);
+    });
 };
