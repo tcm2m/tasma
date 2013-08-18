@@ -32,6 +32,13 @@ module.exports = function(grunt) {
         }
     });
 
+    /**
+     * template helper
+     */
+    function tpl(template, data) {
+        return grunt.template.process(template, {data: data});
+    }
+
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
@@ -43,9 +50,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install-sencha-cmd', function() {
         var done = this.async();
-        var tpl = function(template, data) {
-            return grunt.template.process(template, {data: data});
-        };
 
         var version = '3.1.2.342';
         var workingDir = '/tmp';
@@ -100,9 +104,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install-sencha-sdk', function() {
         var done = this.async();
-        var tpl = function(template, data) {
-            return grunt.template.process(template, {data: data});
-        };
 
         var version = '2.2.1';
         var workingDir = '/tmp';
