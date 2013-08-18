@@ -60,30 +60,11 @@ module.exports = function(grunt) {
 
                     callback();
                 } else {
-                    var ProgressBar = require('progress');
-                    var http = require('http');
-                    var fs = require('fs');
-                    var file = fs.createWriteStream(zipPath);
                     var installerUrl = tpl('http://cdn.sencha.com/cmd/<%= version %>/SenchaCmd-<%= version %>-linux-x64.run.zip', {version: version});
 
                     grunt.log.writeln('downloading from %s', installerUrl.underline);
 
-                    http.get(installerUrl, function(res) {
-                        res.pipe(file);
-
-                        var bar = new ProgressBar('  downloading [:bar] :percent :etas', {
-                            complete: '=',
-                            incomplete: ' ',
-                            width: 20,
-                            total: parseInt(res.headers['content-length'], 10)
-                        });
-
-                        res.on('data', function(chunk) {
-                            bar.tick(chunk.length);
-                        });
-
-                        res.on('end', callback);
-                    });
+                    downloadFile(installerUrl, zipPath, callback);
                 }
             },
 
@@ -152,30 +133,11 @@ module.exports = function(grunt) {
 
                     callback();
                 } else {
-                    var ProgressBar = require('progress');
-                    var http = require('http');
-                    var fs = require('fs');
-                    var file = fs.createWriteStream(zipPath);
-                    var installerUrl = tpl('http://cdn.sencha.com/touch/sencha-touch-<%= version %>-gpl.zip', {version: version});
+                    var sdkUrl = tpl('http://cdn.sencha.com/touch/sencha-touch-<%= version %>-gpl.zip', {version: version});
 
-                    grunt.log.writeln('downloading from %s', installerUrl.underline);
+                    grunt.log.writeln('downloading from %s', sdkUrl.underline);
 
-                    http.get(installerUrl, function(res) {
-                        res.pipe(file);
-
-                        var bar = new ProgressBar('  downloading [:bar] :percent :etas', {
-                            complete: '=',
-                            incomplete: ' ',
-                            width: 20,
-                            total: parseInt(res.headers['content-length'], 10)
-                        });
-
-                        res.on('data', function(chunk) {
-                            bar.tick(chunk.length);
-                        });
-
-                        res.on('end', callback);
-                    });
+                    downloadFile(sdkUrl, zipPath, callback);
                 }
             },
 
@@ -199,3 +161,32 @@ module.exports = function(grunt) {
         }, done);
     });
 };
+
+/**
+ * download helper
+*/
+var ProgressBar = require('progress');
+var http = require('http');
+var fs = require('fs');
+
+function downloadFile(url, filePath, callback) {
+    var file = fs.createWriteStream(filePath);
+
+    http.get(url, function(res) {
+        res.pipe(file);
+
+        var bar = new ProgressBar('  downloading [:bar] :percent :etas', {
+            complete: '=',
+            incomplete: ' ',
+            width: 20,
+            total: parseInt(res.headers['content-length'], 10)
+        });
+
+        res.on('data', function(chunk) {
+            bar.tick(chunk.length);
+        });
+
+        res.on('end', callback);
+    });
+}
+
