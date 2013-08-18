@@ -48,7 +48,8 @@ module.exports = function(grunt) {
         };
 
         var version = '3.1.2.342';
-        var installerPath = tpl('<%= path %>/SenchaCmd-<%= version %>-linux-x64.run', {path: __dirname, version: version});
+        var workingDir = '/tmp';
+        var installerPath = tpl('<%= dir %>/SenchaCmd-<%= version %>-linux-x64.run', {dir: workingDir, version: version});
         var zipPath = installerPath + '.zip';
 
         grunt.util.async.series({
@@ -78,7 +79,7 @@ module.exports = function(grunt) {
                 } else {
                     grunt.util.spawn({
                         cmd: 'unzip',
-                        args: ['-o', installerPath]
+                        args: ['-o', installerPath, '-d', workingDir]
                     }, callback);
                 }
             },
@@ -99,15 +100,6 @@ module.exports = function(grunt) {
                     cmd: installerPath,
                     args: ['--mode', 'unattended']
                 }, callback);
-            },
-
-            clean: function(callback) {
-                grunt.log.subhead('cleaning up...');
-
-                grunt.util.spawn({
-                    cmd: 'rm',
-                    args: ['-rf', zipPath, installerPath]
-                }, callback);
             }
         }, done);
     });
@@ -119,9 +111,9 @@ module.exports = function(grunt) {
         };
 
         var version = '2.2.1';
-        var installPath = '/tmp';
-        var sdkPath = tpl('<%= path %>/touch-<%= version %>', {path: installPath, version: version});
-        var zipPath = tpl('<%= path %>/sencha-touch-<%= version %>-gpl.zip', {path: installPath, version: version});
+        var workingDir = '/tmp';
+        var sdkPath = tpl('<%= dir %>/touch-<%= version %>', {dir: workingDir, version: version});
+        var zipPath = tpl('<%= dir %>/sencha-touch-<%= version %>-gpl.zip', {dir: workingDir, version: version});
         var appPath = __dirname + '/www';
 
         grunt.util.async.series({
@@ -146,7 +138,7 @@ module.exports = function(grunt) {
 
                 grunt.util.spawn({
                     cmd: 'unzip',
-                    args: ['-o', zipPath, '-d', installPath]
+                    args: ['-o', zipPath, '-d', workingDir]
                 }, callback);
             },
 
