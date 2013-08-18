@@ -72,16 +72,10 @@ module.exports = function(grunt) {
             extract: function(callback) {
                 grunt.log.subhead('extracting...');
 
-                if (grunt.file.exists(installerPath)) {
-                    grunt.log.writeln('installer already unzipped, skipping unzip process...');
-
-                    callback();
-                } else {
-                    grunt.util.spawn({
-                        cmd: 'unzip',
-                        args: ['-o', installerPath, '-d', workingDir]
-                    }, callback);
-                }
+                grunt.util.spawn({
+                    cmd: 'unzip',
+                    args: ['-o', installerPath, '-d', workingDir]
+                }, callback);
             },
 
             makeExecutable: function(callback) {
