@@ -29,15 +29,23 @@ module.exports = function(grunt) {
                     keepalive: true
                 }
             }
+        },
+        downloadDir: '/tmp',
+        sencha: {
+            cmd: {
+                version: '3.1.2.342',
+                path: '<%= downloadDir %>/SenchaCmd-<%= sencha.cmd.version %>-linux-x64.run',
+                zipPath: '<%= sencha.cmd.path %>.zip',
+                url: 'http://cdn.sencha.com/cmd/<%= sencha.cmd.version %>/SenchaCmd-<%= sencha.cmd.version %>-linux-x64.run.zip'
+            },
+            sdk: {
+                version: '2.2.1',
+                path: '<%= downloadDir %>/touch-<%= sencha.sdk.version %>',
+                zipPath: '<%= downloadDir %>/sencha-touch-<%= sencha.sdk.version %>-gpl.zip',
+                url: 'http://cdn.sencha.com/touch/sencha-touch-<%= sencha.sdk.version %>-gpl.zip'
+            }
         }
     });
-
-    /**
-     * template helper
-     */
-    function tpl(template, data) {
-        return grunt.template.process(template, {data: data});
-    }
 
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -50,26 +58,20 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install-sencha-cmd', function() {
         var done = this.async();
-
-        var version = '3.1.2.342';
-        var workingDir = '/tmp';
-        var installerPath = tpl('<%= dir %>/SenchaCmd-<%= version %>-linux-x64.run', {dir: workingDir, version: version});
-        var zipPath = installerPath + '.zip';
+        var opt = grunt.config('sencha.cmd');
 
         grunt.util.async.series({
             download: function(callback) {
                 grunt.log.subhead('downloading installer...');
 
-                if (grunt.file.exists(zipPath)) {
+                if (grunt.file.exists(opt.zipPath)) {
                     grunt.log.writeln('installer already downloaded, skipping download process...');
 
                     callback();
                 } else {
-                    var installerUrl = tpl('http://cdn.sencha.com/cmd/<%= version %>/SenchaCmd-<%= version %>-linux-x64.run.zip', {version: version});
+                    grunt.log.writeln('downloading from %s', opt.url.underline);
 
-                    grunt.log.writeln('downloading from %s', installerUrl.underline);
-
-                    downloadFile(installerUrl, zipPath, callback);
+                    downloadFile(opt.url, opt.zipPath, callback);
                 }
             },
 
@@ -78,7 +80,7 @@ module.exports = function(grunt) {
 
                 grunt.util.spawn({
                     cmd: 'unzip',
-                    args: ['-o', installerPath, '-d', workingDir]
+                    args: ['-o', opt.zipPath, '-d', grunt.config('downloadDir')]
                 }, callback);
             },
 
@@ -87,7 +89,7 @@ module.exports = function(grunt) {
 
                 grunt.util.spawn({
                     cmd: 'chmod',
-                    args: ['+x', installerPath]
+                    args: ['+x', opt.path]
                 }, callback);
             },
 
@@ -95,7 +97,7 @@ module.exports = function(grunt) {
                 grunt.log.subhead('executing...');
 
                 grunt.util.spawn({
-                    cmd: installerPath,
+                    cmd: opt.path,
                     args: ['--mode', 'unattended']
                 }, callback);
             }
@@ -104,27 +106,20 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install-sencha-sdk', function() {
         var done = this.async();
-
-        var version = '2.2.1';
-        var workingDir = '/tmp';
-        var sdkPath = tpl('<%= dir %>/touch-<%= version %>', {dir: workingDir, version: version});
-        var zipPath = tpl('<%= dir %>/sencha-touch-<%= version %>-gpl.zip', {dir: workingDir, version: version});
-        var appPath = __dirname + '/www';
+        var opt = grunt.config('sencha.sdk');
 
         grunt.util.async.series({
             download: function(callback) {
-                grunt.log.subhead('downloading sencha touch %s...', version);
+                grunt.log.subhead('downloading sencha touch %s...', opt.version);
 
-                if (grunt.file.exists(zipPath)) {
+                if (grunt.file.exists(opt.zipPath)) {
                     grunt.log.writeln('sdk already downloaded, skipping...');
 
                     callback();
                 } else {
-                    var sdkUrl = tpl('http://cdn.sencha.com/touch/sencha-touch-<%= version %>-gpl.zip', {version: version});
+                    grunt.log.writeln('downloading from %s', opt.url.underline);
 
-                    grunt.log.writeln('downloading from %s', sdkUrl.underline);
-
-                    downloadFile(sdkUrl, zipPath, callback);
+                    downloadFile(opt.url, opt.zipPath, callback);
                 }
             },
 
@@ -133,7 +128,7 @@ module.exports = function(grunt) {
 
                 grunt.util.spawn({
                     cmd: 'unzip',
-                    args: ['-o', zipPath, '-d', workingDir]
+                    args: ['-o', opt.zipPath, '-d', grunt.config('downloadDir')]
                 }, callback);
             },
 
@@ -142,7 +137,7 @@ module.exports = function(grunt) {
 
                 grunt.util.spawn({
                     cmd: 'sencha',
-                    args: ['-sdk', sdkPath, 'generate', 'workspace', appPath]
+                    args: ['-sdk', opt.path, 'generate', 'workspace', __dirname + '/www']
                 }, callback);
             }
         }, done);
